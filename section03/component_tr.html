@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <counter-component></counter-component>
+      <counter-component></counter-component>
+    </div>
+
+    <script>
+      Vue.component("counter-component", {
+        template: `
+                <div>
+                    <p>{{ count }}</p>
+                    <button @click="countUp">숫자 1업</button>    
+                    <button @click="countDown">숫자 1다운</button>    
+                    <button @click="count = 0">0으로 만들기</button>    
+                </div>
+            `,
+
+        data: function () {
+          return {
+            count: 0,
+          };
+        },
+        methods: {
+          countUp() {
+            this.count++;
+          },
+          countDown() {
+            this.count--;
+          },
+        },
+      });
+
+      new Vue({
+        el: "#app",
+      });
+    </script>
+  </body>
+</html>
