@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <news-component></news-component>
+      <news2-component></news2-component>
+      <person-component></person-component>
+    </div>
+
+    <script>
+      const EventBus = new Vue();
+
+      Vue.component("person-component", {
+        template: `
+                <div>
+                    <p>구독자 확인 : {{ count }}</p>
+                    
+                </div>
+            `,
+        data: function () {
+          return {
+            count: 0,
+          };
+        },
+        // 자바스크립트에서 값이 변경될 때 마다
+        created() {
+          EventBus.$on("add", () => {
+            this.count++;
+          });
+          EventBus.$on("subt", () => {
+            this.count--;
+          });
+          console.log("created");
+        },
+        mounted() {
+          console.log("mounted");
+        },
+      });
+
+      Vue.component("news-component", {
+        template: `
+                <div>
+                    <button @click="addCount"> {{ count }} : 신문발행  </button>                    
+                </div>
+            `,
+        data: function () {
+          return {
+            count: 0,
+          };
+        },
+        methods: {
+          addCount() {
+            this.count++;
+            // 구독자에게 보낼 사용자 정의 이벤트 생성 필요
+            EventBus.$emit("add");
+          },
+        },
+      });
+
+      Vue.component("news2-component", {
+        template: `
+            <div>
+                <button @click="subtract">{{ count }} : 구독취소 </button>    
+            </div>
+          `,
+        data: function () {
+          return {
+            count: 0,
+          };
+        },
+        methods: {
+          subtract() {
+            this.count++;
+            EventBus.$emit("subt");
+          },
+        },
+      });
+
+      new Vue({
+        el: "#app",
+      });
+    </script>
+  </body>
+</html>
