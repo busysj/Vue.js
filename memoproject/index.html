@@ -14,6 +14,7 @@
       <memo-component
         v-for="m in memolist"
         v-bind:id="m.id"
+        v-bind:key="m.id"
         @delete="deleteMemo"
         >{{ m.memo }}</memo-component
       >
