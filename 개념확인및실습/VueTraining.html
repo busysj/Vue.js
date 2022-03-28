@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+      li {
+        list-style-type: none;
+      }
+
+      .product {
+        border-radius: 20px;
+        border: solid gainsboro 1px;
+        width: 400px;
+        text-align: center;
+        padding: 10px 0;
+      }
+
+      .product img {
+        width: 300px;
+        border-radius: 10px;
+      }
+
+      .product button {
+        border: none;
+        background-color: transparent;
+        font-size: large;
+        color: darkgray;
+        cursor: pointer;
+      }
+
+      .product button.on {
+        border: none;
+        background-color: transparent;
+        font-size: large;
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <phone-component></phone-component>
+    </div>
+    <script>
+      Vue.component("phone-component", {
+        template: `
+            <div class="product">
+                <img :src="img" alt="s22 Ultra">
+                <h3>{{phoneName}}</h3>
+                <ul>
+                    <li>디스플레이 : {{ phoneDisplay }}</li>
+                    <li>CPU종류 : {{ phoneCpu }}</li>
+                </ul>
+                <button @click="classOn = !classOn" :class="{on : classOn}">♥</button>
+            </div>
+          `,
+        data() {
+          return {
+            img: "https://images.samsung.com/kdp/event/sec/galaxy_s22/buying/Ultra_Skyblue_01.jpg",
+            phoneName: "Galaxy S22 Ultra",
+            phoneDisplay: "178.55mm",
+            phoneCpu: "Octa-Core",
+            classOn: "",
+          };
+        },
+      });
+
+      new Vue({
+        el: "#app",
+        data: {},
+      });
+    </script>
+  </body>
+</html>
